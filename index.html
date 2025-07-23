@@ -21,27 +21,28 @@
     <footer>Made with 💖 by Arun</footer>
   </div>
 
-  <script>
-function isValidURL(str) {
-  try {
-    new URL(str);
-    return true;
-  } catch (_) {
-    return false;
-  }
-}
+<script>
+  const input = document.getElementById("input");
+  const img = document.getElementById("imgqr");
+  const caption = document.getElementById("caption");
 
-function generate() {
-  const value = input.value.trim();
-  if (!isValidURL(value)) {
-    alert("🚫 Please enter a valid URL!");
-    return;
+  function isCleanURL(url) {
+    // Matches something like: example.com or https://site.com (no spaces, no dots separated)
+    const pattern = /^(https?:\/\/)?[a-zA-Z0-9\-]+(\.[a-zA-Z]{2,})+$/;
+    return pattern.test(url.trim());
   }
 
-  img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(value)}`;
-  caption.textContent = `QR for: ${value}`;
-}
+  function generate() {
+    const value = input.value.trim();
+    if (!isCleanURL(value)) {
+      alert("🚫 Please enter a valid, clean URL (like example.com)");
+      return;
+    }
 
-  </script>
+    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(value)}`;
+    caption.textContent = `QR for: ${value}`;
+  }
+</script>
+
 </body>
 </html>
