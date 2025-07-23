@@ -22,20 +22,26 @@
   </div>
 
   <script>
-    const input = document.getElementById("input");
-    const img = document.getElementById("imgqr");
-    const caption = document.getElementById("caption");
+function isValidURL(str) {
+  try {
+    new URL(str);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
 
-    function generate() {
-      const value = input.value.trim();
-      if (!value) {
-        alert("🚫 Please enter something first!");
-        return;
-      }
+function generate() {
+  const value = input.value.trim();
+  if (!isValidURL(value)) {
+    alert("🚫 Please enter a valid URL!");
+    return;
+  }
 
-      img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(value)}`;
-      caption.textContent = `QR for: ${value}`;
-    }
+  img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(value)}`;
+  caption.textContent = `QR for: ${value}`;
+}
+
   </script>
 </body>
 </html>
