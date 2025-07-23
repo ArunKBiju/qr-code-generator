@@ -33,29 +33,41 @@
   <p>📬 Need a developer? <a href="https://arunkbiju.github.io/My-Portfolio/" target="_blank">Contact Me Here</a></p>
 </div>
 
-  
-<script>
-function isCleanURL(url) {
-  const pattern = /^(https?:\/\/)?[a-zA-Z0-9\-]+(\.[a-zA-Z]{2,})+$/;
-  return pattern.test(url.trim());
-}
+  <script>
+  const input = document.getElementById("input");
+  const img = document.getElementById("imgqr");
+  const caption = document.getElementById("caption");
+  const downloadBtn = document.getElementById("downloadBtn");
 
-function generate() {
-  const value = input.value.trim();
-  if (!isCleanURL(value)) {
-    alert("🚫 Please enter a valid, clean URL (like example.com)");
-    return;
+  function isValidFullURL(url) {
+    try {
+      const parsed = new URL(url.trim());
+      return parsed.protocol === "http:" || parsed.protocol === "https:";
+    } catch (_) {
+      return false;
+    }
   }
 
-  const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(value)}`;
-  img.src = qrURL;
-  caption.textContent = `QR for: ${value}`;
+  function generate() {
+    const value = input.value.trim();
+    if (!isValidFullURL(value)) {
+      alert("🚫 Please enter a full valid URL (starting with http:// or https://)");
+      input.classList.add("error");
+      return;
+    }
+    input.classList.remove("error");
 
-  const downloadBtn = document.getElementById("downloadBtn");
-  downloadBtn.href = qrURL;
-}
+    const qrURL = 
+      "https://api.qrserver.com/v1/create-qr-code/?" +
+      `size=200x200&data=${encodeURIComponent(value)}`;
 
+    img.src = qrURL;
+    caption.textContent = `QR for: ${value}`;
+    downloadBtn.href = qrURL;
+    downloadBtn.style.display = "inline-block";
+  }
 </script>
+
 
 </body>
 </html>
