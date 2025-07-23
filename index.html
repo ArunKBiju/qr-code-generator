@@ -21,27 +21,40 @@
     <footer>Made with 💖 by Arun</footer>
   </div>
 
+  <div class="output">
+  <img src="" id="imgqr" alt="QR Code" />
+  <p id="caption"></p>
+  <a id="downloadBtn" href="#" download="qr-code.png">
+    <button>Download QR Code</button>
+  </a>
+</div>
+
+<div class="contact">
+  <p>📬 Need a developer? <a href="https://arunkbiju.github.io/My-Portfolio/" target="_blank">Contact Me Here</a></p>
+</div>
+
+  
 <script>
-  const input = document.getElementById("input");
-  const img = document.getElementById("imgqr");
-  const caption = document.getElementById("caption");
+function isCleanURL(url) {
+  const pattern = /^(https?:\/\/)?[a-zA-Z0-9\-]+(\.[a-zA-Z]{2,})+$/;
+  return pattern.test(url.trim());
+}
 
-  function isCleanURL(url) {
-    // Matches something like: example.com or https://site.com (no spaces, no dots separated)
-    const pattern = /^(https?:\/\/)?[a-zA-Z0-9\-]+(\.[a-zA-Z]{2,})+$/;
-    return pattern.test(url.trim());
+function generate() {
+  const value = input.value.trim();
+  if (!isCleanURL(value)) {
+    alert("🚫 Please enter a valid, clean URL (like example.com)");
+    return;
   }
 
-  function generate() {
-    const value = input.value.trim();
-    if (!isCleanURL(value)) {
-      alert("🚫 Please enter a valid, clean URL (like example.com)");
-      return;
-    }
+  const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(value)}`;
+  img.src = qrURL;
+  caption.textContent = `QR for: ${value}`;
 
-    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(value)}`;
-    caption.textContent = `QR for: ${value}`;
-  }
+  const downloadBtn = document.getElementById("downloadBtn");
+  downloadBtn.href = qrURL;
+}
+
 </script>
 
 </body>
