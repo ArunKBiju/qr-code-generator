@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Code Generator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>✨ QR Code Generator</h1>
+    <div class="card">
+      <input type="text" id="input" placeholder="Enter text or URL..." />
+      <button onclick="generate()">Generate</button>
+      <div class="output">
+        <img src="" id="imgqr" alt="QR Code" />
+        <p id="caption"></p>
+      </div>
+    </div>
+    <footer>Made with 💖 by Arun</footer>
+  </div>
+
+  <script>
+    const input = document.getElementById("input");
+    const img = document.getElementById("imgqr");
+    const caption = document.getElementById("caption");
+
+    function generate() {
+      const value = input.value.trim();
+      if (!value) {
+        alert("🚫 Please enter something first!");
+        return;
+      }
+
+      img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(value)}`;
+      caption.textContent = `QR for: ${value}`;
+    }
+  </script>
+</body>
+</html>
