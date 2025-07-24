@@ -14,9 +14,14 @@ function isValidFullURL(url) {
 }
 
 function generate() {
-  const value = input.value.trim();
+  let value = input.value.trim();
+
+  if (!/^https?:\/\//i.test(value)) {
+    value = `https://${value}`;
+  }
+
   if (!isValidFullURL(value)) {
-    alert("🚫 Please enter a full valid URL (starting with http:// or https://)");
+    alert("Please enter a valid domain or full URL.");
     input.classList.add("error");
     output.style.display = "none";
     return;
@@ -25,10 +30,8 @@ function generate() {
   input.classList.remove("error");
 
   const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(value)}`;
-
   img.src = qrURL;
   caption.textContent = `QR for: ${value}`;
   downloadBtn.href = qrURL;
-
   output.style.display = "block";
 }
