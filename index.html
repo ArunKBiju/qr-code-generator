@@ -33,11 +33,13 @@
   <p>📬 Need a developer? <a href="https://arunkbiju.github.io/My-Portfolio/" target="_blank">Contact Me Here</a></p>
 </div>
 
+
   <script>
   const input = document.getElementById("input");
   const img = document.getElementById("imgqr");
   const caption = document.getElementById("caption");
   const downloadBtn = document.getElementById("downloadBtn");
+  const output = document.getElementById("output");
 
   function isValidFullURL(url) {
     try {
@@ -51,7 +53,7 @@
   function generate() {
     const value = input.value.trim();
     if (!isValidFullURL(value)) {
-      alert("🚫 Please enter a full valid URL (starting with http:// or https://)");
+      alert("Please enter a full valid URL (starting with http:// or https://)");
       input.classList.add("error");
       return;
     }
@@ -63,6 +65,8 @@
 
     img.src = qrURL;
     caption.textContent = `QR for: ${value}`;
+
+    output.style.display = "block";
     downloadBtn.href = qrURL;
     downloadBtn.style.display = "inline-block";
   }
