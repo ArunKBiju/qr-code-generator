@@ -11,67 +11,25 @@
   <div class="container">
     <h1>✨ QR Code Generator</h1>
     <div class="card">
-      <input type="text" id="input" placeholder="Enter text or URL..." />
+      <input type="text" id="input" placeholder="Enter a full URL (https://...)" />
       <button onclick="generate()">Generate</button>
-      <div class="output">
-        <img src="" id="imgqr" alt="QR Code" />
-        <p id="caption"></p>
-      </div>
     </div>
+
+    <div class="output" id="output">
+      <img id="imgqr" alt="QR Code" />
+      <p id="caption"></p>
+      <a id="downloadBtn" href="#" download="qr-code.png">
+        <button>Download QR Code</button>
+      </a>
+    </div>
+
+    <div class="contact">
+      <p>📬 Need a developer? <a href="https://arunkbiju.github.io/My-Portfolio/" target="_blank">Contact Me Here</a></p>
+    </div>
+
     <footer>Made with 💖 by Arun</footer>
   </div>
 
-<div class="output" id="output" style="display: none;">
-  <img src="" id="imgqr" alt="QR Code" />
-  <p id="caption"></p>
-  <a id="downloadBtn" href="#" download="qr-code.png" style="display: none;">
-    <button>Download QR Code</button>
-  </a>
-</div>
-
-<div class="contact">
-  <p>📬 Need a developer? <a href="https://arunkbiju.github.io/My-Portfolio/" target="_blank">Contact Me Here</a></p>
-</div>
-
-
-  <script>
-  const input = document.getElementById("input");
-  const img = document.getElementById("imgqr");
-  const caption = document.getElementById("caption");
-  const downloadBtn = document.getElementById("downloadBtn");
-  const output = document.getElementById("output");
-
-  function isValidFullURL(url) {
-    try {
-      const parsed = new URL(url.trim());
-      return parsed.protocol === "http:" || parsed.protocol === "https:";
-    } catch (_) {
-      return false;
-    }
-  }
-
-  function generate() {
-    const value = input.value.trim();
-    if (!isValidFullURL(value)) {
-      alert("Please enter a full valid URL (starting with http:// or https://)");
-      input.classList.add("error");
-      return;
-    }
-    input.classList.remove("error");
-
-    const qrURL = 
-      "https://api.qrserver.com/v1/create-qr-code/?" +
-      `size=200x200&data=${encodeURIComponent(value)}`;
-
-    img.src = qrURL;
-    caption.textContent = `QR for: ${value}`;
-
-    output.style.display = "block";
-    downloadBtn.href = qrURL;
-    downloadBtn.style.display = "inline-block";
-  }
-</script>
-
-
+  <script src="script.js"></script>
 </body>
 </html>
